@@ -7,8 +7,6 @@ Websockets are used which allows more than 2 peers to connect which is quite dif
 This app has user authentication system.
 
 
-video link:- https://www.youtube.com/watch?v=dI4tBNL4YcA
-
 WEBPAGES IN THIS APP
 
 Login page to login a user 
