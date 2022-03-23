@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {%load static %}
+	<meta charset="utf-8"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{%static 'emoji/emojionearea.min.css' %}">
+    <link rel="stylesheet" href="{%static 'buttons_styling.css' %}">
+    <link rel="stylesheet" href="{%static 'chat_side_panel.css' %}" type="text/css">
+    <link rel="stylesheet" href="{%static 'select filter/select_filter.css' %}" type="text/css">
+    
+    <title>Video Call Room</title>
+    <style>
+        html{
+            background-color: black;
+            box-sizing:border-box;
+        }
+        body{
+            height: 100%;
+            margin: 0;
+            padding: 10px;
+        }
+        /* styling for all the videos in the grid */
+        #video-container {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px;
+            background-color: black;
+        }
+        /* styling for grids containg videos */
+        #video-grid{
+            display: grid;
+        }
+        /* styling for space containing chat,buttons and video */
+        #main-container {
+            background-color: black;   
+        }
+        /* styling for each video  */
+        video {
+            border-radius: 30px;
+            height: 300px;
+            width: 300px;
+            background-color: black;
+        }
+        /* positioning of buttons */
+        .buttons_positioning{
+            width: 50%;
+            margin: 0;
+            align-items: center;
+            position: absolute;
+            bottom: 10px;
+            left: 30%;
+        }
+        
+        
+    </style>
+    
+</head>
+<body>
+    {{ room_name|json_script:"room-name" }}
+	{{ username|json_script:"username" }}
+    
+    
+    <div id="main-container">
+
+        <div id="mySidepanel" class="sidepanel">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <textarea id="chat-log" cols="100" rows="40"></textarea><br>
+            <input id="chat-message-input" type="text" size="100"><br>
+            <input id="chat-message-submit" type="button" value="Send">             
+        </div>
+        <button  class="openbtn" onclick="openNav()"  ><i class="material-icons" style='font-size:36px;padding: 5px;'>chat</i></button>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="{%static 'emoji/emojionearea.min.js' %}"> </script>
+        
+        <script>
+            function openNav() {
+                document.getElementById("mySidepanel").style.width = "330px";
+            }
+            function closeNav() {
+                document.getElementById("mySidepanel").style.width = "0";
+            }
+            $(document).ready(function(){
+                $("#chat-message-input").emojioneArea({
+                    pickerPosition:"bottom-right"
+                });
+            });
+        </script>
+        <div id="video-grid">
+            <div id="video-container">
+                <div ><video id="localVideo"  autoplay playsinline></video></div>
+            </div>
+        </div>
+        
+        
+        <div class="buttons_positioning">
+            
+            <button id="callButton">Call</button>
+            <button id="audio">Audio Mute</button>
+            <button id="video">Video Mute</button>
+            <button id="screen-share" disabled>Share Screen</button>
+            <div class="custom-select" >
+                <select >
+                    <option value="none">Select Filters</option>
+                    <option value="none">Normal</option>
+                        <option value="blur(10px)">Blur</option>
+                        <option value="brightness(100%)">brightness</option>
+                        <option value="contrast(100%)">contrast</option>
+                        <option value="grayscale(100%)">grayscale</option>
+                        <option value="invert(100%)">invert</option>
+                        <option value="sepia(100%)">sepia</option>
+                </select>
+            </div>
+            <button id="clear">Clear Filter</button>
+            <a href="{%url 'room'  room_name username %}">
+                <button id="hangupButton" disabled>Hang Up</button>
+            </a>
+            <a href="{%url 'call' %}">
+                <button type="button" >Leave Room</button>
+            </a>
+        </div> 
+        <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+        <script src="{%static 'video.js' %}"> </script>
+        <script src="{%static 'select filter/select_filter.js' %}"></script>
+    </div>
+    
+</body>
+</html>

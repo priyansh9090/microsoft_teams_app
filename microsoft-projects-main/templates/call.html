@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  
+  {% load static %}
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="{%static 'buttons_styling.css' %}">
+
+
+<style>
+* {box-sizing: border-box;}
+  
+  .naming_position{
+    float: right;
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  /* styling for call heading */
+  .top{
+  font-size:60px;
+  margin-left:20px;
+  margin-top: 50px;
+  }
+
+  /* styling for search container including button and text area */
+  .topnav .search-container {
+    float: centre;
+    padding-left:30px;
+  }
+
+  /* styling for input field in which to search */
+  .topnav input[type=text] {
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 17px;
+    border: 5px solid red;
+  }
+
+  /* styling for search button */
+  .topnav .search-container button {
+  
+    padding: 10px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .topnav .search-container button:hover {
+    background: yellow;
+  }
+
+  /* responsive styling for search container */
+  @media screen and (max-width: 600px) {
+    .topnav .search-container {
+      float: none;
+    }
+    .topnav input[type=text], .topnav .search-container button {
+      float: none;
+      display: block;
+      text-align: center;
+      width: 100%;
+      margin: 0;
+      padding: 14px;
+    }
+    .topnav input[type=text] {
+      border: 10px solid red;  
+    }
+  
+  }
+
+</style>
+</head>
+<body>
+  <div class="naming_position">
+    <h1 > {{user.first_name}}  {{user.last_name}}</h1>
+
+    <a href="{%url 'logout' %}">
+      <button type="submit" >logout</button>
+    </a>
+
+  </div>
+  
+    
+    <h1 class="top">Call</h1>
+    <!-- form to submit the search results -->
+      <form method="post">
+        {%csrf_token%}
+          <div class="topnav">
+            <div class="search-container">
+                <input type="text" placeholder="Search the username.." name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+      </form>
+  
+
+    <!-- to show all the username according to search results -->
+    <div>
+      {%for i in peer%}
+        <h2>{{i}}</h2>
+        <a href="{%url 'index' %}">
+          <button ><i class='material-icons' style='font-size:36px;'>videocamera</i></button>
+        </a>
+      {%endfor%}
+    </div>
+  
+</body>
+</html>

@@ -1,0 +1,14 @@
+button {
+  background-color: #04aa6d;
+  color: white;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-size: 15px;
+  text-align: center;
+}
+button:hover {
+  opacity: 0.8;
+}
+button:disabled {
+  background-color: rgb(255, 38, 0);
+}

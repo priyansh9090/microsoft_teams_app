@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {%load static%}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="{%static 'buttons_styling.css' %}" type="text/css">
+    
+<style>
+/* to shift bname and logout button on right */
+  .naming_position{
+    float: right;
+  }
+/* styling for chat and calls buttons */
+.btn {
+  background-color: DodgerBlue;
+  border:4px black;
+  border-radius:45px;
+  border-left-style:dashed;
+  color: white;
+  padding: 36px 40px;
+  position:relative;
+  text-align:centre;
+  font-size: 40px;
+  float:centre;
+  cursor: pointer;
+  left:35%;
+  
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: rgb(152, 251, 197);
+}
+
+</style>
+</head>
+<body>
+{%csrf_token%}
+  <div class="naming_position">
+    <h1 > {{user.first_name}}  {{user.last_name}}</h1>
+
+    <a href="{%url 'logout' %}">
+      <button type="submit" >logout</button>
+    </a>
+
+  </div>
+  
+  <br><br><br><br><br><br><br><br><br><br>
+  <button class="btn" style="margin-right: 30px"><i class="material-icons" style='font-size:36px'>chat</i> Chat</button>
+  <a href="{%url 'call' %}">
+    <button  class="btn"><i class="material-icons" style="font-size:36px">call</i> Calls</button>
+  </a>
+  
+</body>
+</html>
